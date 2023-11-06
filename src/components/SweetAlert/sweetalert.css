@@ -1,0 +1,32 @@
+.swal2-styled.swal2-confirm {
+  background-color: #d40000 !important;
+  /* background: none; */
+  outline: none;
+  border: none;
+}
+.swal2-icon.swal2-warning {
+  border-color: #d40000 !important;
+  color: #d40000 !important;
+}
+.swal2-title {
+  font-family: "Roboto", sans-serif;
+  color: #414042 !important;
+}
+.swal2-icon.swal2-error {
+  border-color: #d40000 !important;
+  color: #d40000 !important;
+}
+.swal2-icon.swal2-error [class^="swal2-x-mark-line"] {
+  border-color: #d40000 !important;
+  background-color: #d40000 !important;
+  color: #d40000 !important;
+}
+.swal2-html-container {
+  font-family: "Roboto", sans-serif;
+}
+.swal2-cancel {
+  width: 80%;
+}
+.swal2-styled.swal2-confirm {
+  width: 80%;
+}
