@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import { errorMessage } from "../../components/SweetAlert";
@@ -49,22 +49,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 export default function Dashboard() {
   const { handleDashboardStat } = HttpRequest();
+  const [dataArray, setDataArray] = useState();
   React.useEffect(() => {
-    handleDashboardStat();
+    handleDashboardStat(handlApiResponse);
   }, []);
+  const handlApiResponse = (data) => {
+    setDataArray(data);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={4} sx={{ p: 4 }}>
@@ -96,7 +89,7 @@ export default function Dashboard() {
                       {dateFormat(row?.createdAt, "fullDate")}
                     </StyledTableCell>
                     <StyledTableCell align="left">
-                      {dateFormat(row?.totalNumberOfLogin, "fullDate")}
+                      {row?.totalNumberOfLogin}
                     </StyledTableCell>
                     <StyledTableCell align="left">
                       {dateFormat(row?.lastLoginAt, "fullDate")}
@@ -131,13 +124,13 @@ export default function Dashboard() {
               <TableBody>
                 <StyledTableRow>
                   <StyledTableCell align="left">
-                    {dataArray.stats.totalSignedUsers}
+                    {dataArray?.stats?.totalSignedUsers}
                   </StyledTableCell>
                   <StyledTableCell align="left">
-                    {dataArray.stats.usersWithActiveSessions}
+                    {dataArray?.stats?.usersWithActiveSessions}
                   </StyledTableCell>
                   <StyledTableCell align="left">
-                    {dataArray.stats.averageActiveSessionsWithinSevenDays}
+                    {dataArray?.stats?.averageActiveSessionsWithinSevenDays}
                   </StyledTableCell>
                 </StyledTableRow>
               </TableBody>

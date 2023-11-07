@@ -82,57 +82,43 @@ const HttpRequest = (counter) => {
         { headers: { Authorization: `Bearer ${accessToken}` } }
       )
       .then((res) => {
-        handleLoading()
+        handleLoading();
+        localStorage.setItem("user", JSON.stringify(res?.data?.data));
         successMessage(res?.data?.message);
       })
       .catch((err) => {
         errorMessage(err?.response?.data?.message);
       });
   };
-  const handleGetProfile = () => {
-    const accessToken = Cookies.get("token");
-    axios
-      .get(`${API_URL}/auth/get-user-profile`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => {
-        localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
-      })
-      .catch((err) => {
-        errorMessage(err?.response?.data?.message);
-      });
-  };
-  const handleDashboardStat = () => {
+  const handleDashboardStat = (handlApiResponse) => {
     const accessToken = Cookies.get("token");
     axios
       .get(`${API_URL}/users/get-dashboard-stats`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
-        console.log("res");
-        console.log("res");
-        console.log(res);
+        handlApiResponse(res.data.data);
       })
       .catch((err) => {
         errorMessage(err?.response?.data?.message);
       });
   };
-  const handleLoginWithGoogle=(token)=>{
+  const handleLoginWithGoogle = (token) => {
     axios
-    .post(`${API_URL}/auth/login-with-google`, {
-      googleToken:token
-    })
-    .then((res) => {
-      Cookies.set("token", `${res?.data?.data?.token}`, { expires: 7 });
-      localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
-    })
-    .catch((err) => {
-      errorMessage(err?.response?.data?.message);
-    });
-  }
+      .post(`${API_URL}/auth/login-with-google`, {
+        googleToken: token,
+      })
+      .then((res) => {
+        Cookies.set("token", `${res?.data?.data?.token}`, { expires: 7 });
+        localStorage.setItem("user", JSON.stringify(res?.data?.data?.user));
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
+      })
+      .catch((err) => {
+        errorMessage(err?.response?.data?.message);
+      });
+  };
   return {
     handleSignupApi,
     handleVerifyEmail,
@@ -140,8 +126,7 @@ const HttpRequest = (counter) => {
     handlePasswordResetApi,
     handleUpdateProfile,
     handleDashboardStat,
-    handleGetProfile,
-    handleLoginWithGoogle
+    handleLoginWithGoogle,
   };
 };
 

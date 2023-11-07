@@ -1,4 +1,4 @@
-export const API_URL = "https://f2e4-39-36-18-26.ngrok-free.app/api/v1";
+export const API_URL = "https://user-apis-piu1-git-main-rehannaveeds-projects.vercel.app/api/v1";
 
 export const dataArray = {
   users: [

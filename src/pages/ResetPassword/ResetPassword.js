@@ -27,12 +27,8 @@ function ResetPassword() {
   const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [isReadOnly, setIsReadOnly] = useState(true);
   const [userName, setUserName] = useState();
-  const { handlePasswordResetApi, handleUpdateProfile, handleGetProfile } =
-    HttpRequest();
-  console.log("user");
-  console.log(user);
+  const { handlePasswordResetApi, handleUpdateProfile } = HttpRequest();
   const handleLoading = () => {
-    handleGetProfile();
     setLoading(false);
   };
   useEffect(() => {
@@ -83,8 +79,8 @@ function ResetPassword() {
           <Button
             sx={submitButtonsTwo}
             onClick={() => {
-              setLoading(true)
-              handleUpdateProfile(userName, handleLoading)
+              setLoading(true);
+              handleUpdateProfile(userName, handleLoading);
             }}
           >
             {loading ? <CircularProgress /> : "Submit"}
